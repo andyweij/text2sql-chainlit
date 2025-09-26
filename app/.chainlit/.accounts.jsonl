@@ -1,0 +1,2 @@
+{"identifier": "admin", "password": "$2b$12$MRwHnV4zmLdrmkjU9Bl3BeOLgefCGj//CXHPfJiV9SPsJAunFrcpK", "role": "admin", "provider": "credentials"}
+{"identifier": "guest", "password": "$2b$12$FYAPELbs89c0K.QE0RKe8uUcf2VZep1o/G1R8THieSb9RjLX5oBDq", "role": "user", "provider": "credentials"}

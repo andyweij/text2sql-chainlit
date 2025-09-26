@@ -1,0 +1,6 @@
+div#chat-settings-dialog textarea#docs {
+    line-height: 1.4em;
+    min-width: 18em;
+    min-height: 12em;
+    font-size: 0.8em;
+}

@@ -1,0 +1,11 @@
+pydantic==2.10.1
+openai==1.56.0              # OpenAI API
+asyncpg==0.30.0             # PostgreSQL database driver (async support)
+SQLAlchemy[asyncio]==2.0.36 # SQLAlchemy for ORM
+bidict==0.23.1              # Bi-directional dictionary
+typing-extensions==4.12.2   # Typing extensions (for better type hinting support in older Python versions)
+aiohttp==3.11.10
+asyncio==3.4.3
+plotly==5.24.1
+aiosqlite==0.20.0
+bcrypt==4.3.0

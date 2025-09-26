@@ -1,0 +1,229 @@
+{
+  "components": {
+    "atoms": {
+      "buttons": {
+        "userButton": {
+          "menu": {
+            "settings": "設定",
+            "settingsKey": "S",
+            "APIKeys": "API 密鑰",
+            "logout": "登出"
+          }
+        }
+      }
+    },
+    "molecules": {
+      "newChatButton": {
+        "newChat": "新建對話"
+      },
+      "tasklist": {
+        "TaskList": {
+          "title": "🗒️ 任務列表",
+          "loading": "加載中...",
+          "error": "發生錯誤"
+        }
+      },
+      "attachments": {
+        "cancelUpload": "取消上傳",
+        "removeAttachment": "移除附件"
+      },
+      "newChatDialog": {
+        "createNewChat": "創建新對話？",
+        "clearChat": "這將清除當前對話並開始新的對話。",
+        "cancel": "取消",
+        "confirm": "確認"
+      },
+      "settingsModal": {
+        "settings": "設定",
+        "expandMessages": "展開訊息",
+        "hideChainOfThought": "隱藏思考步驟",
+        "darkMode": "深色主題"
+      },
+      "detailsButton": {
+        "using": "",
+        "used": ""
+      },
+      "auth": {
+        "authLogin": {
+          "title": "登入以訪問應用。",
+          "form": {
+            "email": "電子郵件地址",
+            "password": "密碼",
+            "noAccount": "沒有帳戶？",
+            "alreadyHaveAccount": "已有帳戶？",
+            "signup": "註冊",
+            "signin": "登入",
+            "or": "或者",
+            "continue": "繼續",
+            "forgotPassword": "忘記密碼？",
+            "passwordMustContain": "您的密碼必須包含：",
+            "emailRequired": "電子郵件是必填項",
+            "passwordRequired": "密碼是必填選項"
+          },
+          "error": {
+            "default": "無法登入。",
+            "signin": "嘗試使用不同的帳戶登入。",
+            "oauthsignin": "嘗試使用不同的帳戶登入。",
+            "redirect_uri_mismatch": "重定向URI與OAuth應用配置不匹配。",
+            "oauthcallbackerror": "嘗試使用不同的帳戶登入。",
+            "oauthcreateaccount": "嘗試使用不同的帳戶登入。",
+            "emailcreateaccount": "嘗試使用不同的帳戶登入。",
+            "callback": "嘗試使用不同的帳戶登入。",
+            "oauthaccountnotlinked": "為了驗證您的身份，請使用最初使用的同一帳戶登入。",
+            "emailsignin": "無法發送郵件。",
+            "emailverify": "請驗證您的電子郵件，已發送一封新郵件。",
+            "credentialssignin": "登入失敗。請檢查您提供的詳細資訊是否正確。",
+            "sessionrequired": "請登入以訪問此頁面。"
+          }
+        },
+        "authVerifyEmail": {
+          "almostThere": "您快完成了！我們已向 ",
+          "verifyEmailLink": "請點擊該郵件中的鏈接以完成註冊。",
+          "didNotReceive": "未收到郵件？",
+          "resendEmail": "重新發送郵件",
+          "goBack": "返回",
+          "emailSent": "郵件已成功發送。",
+          "verifyEmail": "驗證您的電子郵件地址"
+        },
+        "providerButton": {
+          "continue": "使用{{provider}}繼續",
+          "signup": "使用{{provider}}註冊"
+        },
+        "authResetPassword": {
+          "newPasswordRequired": "新密碼是必填項",
+          "passwordsMustMatch": "密碼必須一致",
+          "confirmPasswordRequired": "確認密碼是必填項",
+          "newPassword": "新密碼",
+          "confirmPassword": "確認密碼",
+          "resetPassword": "重置密碼"
+        },
+        "authForgotPassword": {
+          "email": "電子郵件地址",
+          "emailRequired": "電子郵件是必填項",
+          "emailSent": "請檢查電子郵件{{email}}以獲取重置密碼的指示。",
+          "enterEmail": "請輸入您的電子郵件地址，我們將發送重置密碼的指示。",
+          "resendEmail": "重新發送郵件",
+          "continue": "繼續",
+          "goBack": "返回"
+        }
+      }
+    },
+    "organisms": {
+      "chat": {
+        "history": {
+          "index": {
+            "showHistory": "顯示歷史",
+            "lastInputs": "最後輸入",
+            "noInputs": "如此空曠...",
+            "loading": "加載中..."
+          }
+        },
+        "inputBox": {
+          "input": {
+            "placeholder": "在這裡輸入您的訊息..."
+          },
+          "speechButton": {
+            "start": "開始錄音",
+            "stop": "停止錄音"
+          },
+          "SubmitButton": {
+            "sendMessage": "發送訊息",
+            "stopTask": "停止任務"
+          },
+          "UploadButton": {
+            "attachFiles": "附加文件"
+          },
+          "waterMark": {
+            "text": "建構自"
+          }
+        },
+        "Messages": {
+          "index": {
+            "running": "運行中",
+            "executedSuccessfully": "執行成功",
+            "failed": "失敗",
+            "feedbackUpdated": "反饋已更新",
+            "updating": "正在更新"
+          }
+        },
+        "dropScreen": {
+          "dropYourFilesHere": "在這裡拖放您的文件"
+        },
+        "index": {
+          "failedToUpload": "上傳失敗",
+          "cancelledUploadOf": "取消上傳",
+          "couldNotReachServer": "無法連接到伺服器",
+          "continuingChat": "繼續之前的對話"
+        },
+        "settings": {
+          "settingsPanel": "設定面板",
+          "reset": "重置",
+          "cancel": "取消",
+          "confirm": "確認"
+        }
+      },
+      "threadHistory": {
+        "sidebar": {
+          "filters": {
+            "FeedbackSelect": {
+              "feedbackAll": "全部",
+              "feedbackPositive": "反饋：正面",
+              "feedbackNegative": "反饋：負面"
+            },
+            "SearchBar": {
+              "search": "搜尋"
+            }
+          },
+          "DeleteThreadButton": {
+            "confirmMessage": "這將刪除此對話及其資訊。",
+            "cancel": "取消",
+            "confirm": "確認",
+            "deletingChat": "刪除對話",
+            "chatDeleted": "對話已刪除"
+          },
+          "index": {
+            "pastChats": "過往對話"
+          },
+          "ThreadList": {
+            "empty": "空的...",
+            "today": "今天",
+            "yesterday": "昨天",
+            "previous7days": "前7天",
+            "previous30days": "前30天"
+          },
+          "TriggerButton": {
+            "closeSidebar": "關閉側邊欄",
+            "openSidebar": "打開側邊欄"
+          }
+        },
+        "Thread": {
+          "backToChat": "返回對話",
+          "chatCreatedOn": "此對話創建於"
+        }
+      },
+      "header": {
+        "chat": "對話",
+        "readme": "說明"
+      }
+    }
+  },
+  "hooks": {
+    "useLLMProviders": {
+      "failedToFetchProviders": "獲取提供者失敗:"
+    }
+  },
+  "pages": {
+    "Design": {},
+    "Env": {
+      "savedSuccessfully": "保存成功",
+      "requiredApiKeys": "必需的API密鑰",
+      "requiredApiKeysInfo": "要使用此應用，需要以下API密鑰。這些密鑰存儲在您的設備本地存儲中。"
+    },
+    "Page": {
+      "notPartOfProject": "您不是此項目的一部分。"
+    },
+    "ResumeButton": {
+      "resumeChat": "恢復對話"
+    }
+  }
+}
