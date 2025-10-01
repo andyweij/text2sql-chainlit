@@ -7,7 +7,7 @@ LOG_FORMAT = "%(asctime)s - [%(name)s] %(levelname)s - %(message)s"
 DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 # 初始化日志
-def get_logger(tag: str, log_file: str = "/var/log/app.log", max_bytes: int = 5 * 1024 * 1024, backup_count: int = 3):
+def get_logger(tag: str, log_file: str = "/log/app.log", max_bytes: int = 5 * 1024 * 1024, backup_count: int = 3):
     """
     创建一个日志记录器。
 

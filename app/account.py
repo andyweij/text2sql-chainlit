@@ -6,6 +6,7 @@ ACCOUNTS_DIR = ".chainlit"
 ACCOUNTS_FILE = os.path.join(ACCOUNTS_DIR, ".accounts.jsonl")
 
 def load_accounts():
+    print("accounts")
     """讀取 .accounts.jsonl 檔案，回傳帳號列表，每一筆資料是一個 dict"""
     accounts = []
     if os.path.exists(ACCOUNTS_FILE):
@@ -20,6 +21,7 @@ def load_accounts():
 def authenticate_account(identifier: str, password: str):
     accounts = load_accounts()
     account = next((acc for acc in accounts if acc.get("identifier") == identifier), None)
+
     if account is None:
         return None
     else:
@@ -30,4 +32,5 @@ def authenticate_account(identifier: str, password: str):
                 "role": account.get("role", None),
                 "provider": account.get("provider", None)
             }
+
     return None
