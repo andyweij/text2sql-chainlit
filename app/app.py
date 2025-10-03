@@ -384,7 +384,7 @@ for route in app.router.routes:
     else:
         logger.info(f"Route: {route.path}, Name: {route.name} (type: {type(route)})")
 
-"""
+
 @cl.password_auth_callback
 def auth_callback(username: str, password: str):
     logger.info(f"password_auth_callback {username}")
@@ -412,7 +412,7 @@ def auth_callback(username: str, password: str):
 
     logger.info(f"無效的登入動作(username: {username})")
     return None
-"""
+
 
 
 @cl.on_logout

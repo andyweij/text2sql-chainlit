@@ -1,0 +1,22 @@
+# Python 虛擬環境
+.venv
+venv
+__pycache__
+
+# IDE 和系統檔案
+.idea/
+.vscode/
+.DS_Store
+
+# Git
+.git
+
+# 資料檔案
+data/
+
+# Node/Frontend 相關 (這是新增的部分)
+node_modules/
+
+# 其他
+*.pyc
+*.db
