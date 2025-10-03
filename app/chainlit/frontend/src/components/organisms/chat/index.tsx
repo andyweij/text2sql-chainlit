@@ -30,9 +30,6 @@ import Messages from './Messages';
 import DropScreen from './dropScreen';
 import InputBox from './inputBox';
 import WelcomeScreen from './welcomeScreen';
-import AddIcon from '@mui/icons-material/Add';
-import { SettingsModal } from 'components/SettingsModal'
-import Button from '@mui/material/Button';
 
 const Chat = () => {
   const { user } = useAuth();
@@ -46,7 +43,6 @@ const Chat = () => {
   const uploadFileRef = useRef(uploadFile);
   const navigate = useNavigate();
   // --- 以下是我們新增的 state ---
-  const [isSettingsModalOpen, setSettingsModalOpen] = useState(false);
   // --- 新增 state 結束 ---
   const fileSpec = useMemo(
     () => ({
@@ -189,26 +185,7 @@ const Chat = () => {
       flexGrow={1}
       position="relative"
     >
-      {/* --- 在這裡新增按鈕和 Modal --- */}
-      <Box sx={{
-        position: 'absolute',
-        top: '1rem',
-        right: '1rem',
-        zIndex: 1
-      }}>
-        <Button
-          variant="outlined"
-          startIcon={<AddIcon />}
-          onClick={() => setSettingsModalOpen(true)}
-        >
-        </Button>
-      </Box>
 
-      <SettingsModal
-        isOpen={isSettingsModalOpen}
-        onClose={() => setSettingsModalOpen(false)}
-      />
-      {/* --- 新增結束 --- */}
       {upload ? (
         <>
           <input id="#upload-drop-input" {...upload.getInputProps()} />

@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo ,useState} from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { Box, Stack } from '@mui/material';
@@ -12,46 +12,63 @@ import NewChatButton from 'components/molecules/newChatButton';
 import { settingsState } from 'state/settings';
 
 import { OpenSideBarMobileButton } from './sidebar/OpenSideBarMobileButton';
+import AddIcon from '@mui/icons-material/Add';
+import { SettingsModal } from 'components/SettingsModal'
+import { AgentModalInfo } from 'components/AgentModalInfo'
+import IconButton from '@mui/material/IconButton';
 
 const Header = memo(() => {
   const isMobile = useMediaQuery('(max-width: 66rem)');
   const { isChatHistoryOpen } = useRecoilValue(settingsState);
-
+  const [isSettingsModalOpen, setSettingsModalOpen] = useState(false);
   return (
-    <Box
-      px={1}
-      py={1}
-      display="flex"
-      height="45px"
-      alignItems="center"
-      flexDirection="row"
-      justifyContent="space-between"
-      color="text.primary"
-      gap={2}
-      id="header"
-      position="relative"
-    >
+    <>
+      <AgentModalInfo
+        isOpen={isSettingsModalOpen}
+        onClose={() => setSettingsModalOpen(false)}
+      />
       <Box
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)'
-        }}
+        px={1}
+        py={1}
+        display="flex"
+        height="45px"
+        alignItems="center"
+        flexDirection="row"
+        justifyContent="space-between"
+        color="text.primary"
+        gap={2}
+        id="header"
+        position="relative"
       >
-        <ChatProfiles />
+        <Stack direction="row" alignItems="center" gap={1.5}>
+          {isMobile ? (
+            <OpenSideBarMobileButton />
+          ) : isChatHistoryOpen ? null : (
+            <Logo style={{ maxHeight: '25px' }} />
+          )}
+          <IconButton
+            aria-label="add"
+            onClick={() => setSettingsModalOpen(true)}
+            sx={{
+              border: '1px solid',
+              borderColor: 'grey.300', // 給一個柔和的邊框色
+              borderRadius: '50%',
+              width: 32,
+              height: 32,
+            }}
+          >
+            <AddIcon fontSize="small" />
+          </IconButton>
+        </Stack>
+        <Box>
+          <ChatProfiles />
+        </Box>
+        <Stack direction="row" alignItems="center">
+          <NewChatButton />
+          <UserButton />
+        </Stack>
       </Box>
-      {isMobile ? (
-        <OpenSideBarMobileButton />
-      ) : isChatHistoryOpen ? null : (
-        <Logo style={{ maxHeight: '25px', marginLeft: '8px' }} />
-      )}
-      <Box />
-      <Stack direction="row" alignItems="center">
-        <NewChatButton />
-        <UserButton />
-      </Stack>
-    </Box>
+    </>
   );
 });
 

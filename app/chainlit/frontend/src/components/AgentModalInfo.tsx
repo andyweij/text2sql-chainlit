@@ -1,24 +1,34 @@
-import React, { useState }  from 'react';
-import { useFormik } from 'formik';
+import * as React from "react";
+import { useState } from "react"; // 修正 1: 引入 useState
+import { useFormik } from "formik"; // 修正 1: 引入 useFormik
 import * as yup from 'yup';
-import { toast } from 'sonner';
+import { toast } from "sonner"; // 修正 1: 引入 toast
 
 // Material-UI Components
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import TextField from "@mui/material/TextField";
 
-// 定義 Modal 的 Props 型別
-interface SettingsModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+  // Box 內部使用 flex 布局
+  display: "flex",
+  flexDirection: "column",
+  gap: "12px", // 控制元件之間的垂直間距
+};
 
-// 修正後的驗證規則，確保與表單欄位完全對應
+// 表單驗證規則
 const validationSchema = yup.object({
   agentName: yup.string().required('Agent Name 為必填項目'),
   llmModelName: yup.string().required('LLM Model Name 為必填項目'),
@@ -30,8 +40,16 @@ const validationSchema = yup.object({
   dbConnectionString: yup.string().required('DB Connection String 為必填項目'),
 });
 
-export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
+interface AgentModalInfoProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+
+export const AgentModalInfo: React.FC<AgentModalInfoProps> = ({ isOpen, onClose }) => {
   const [isVerifying, setIsVerifying] = useState(false);
+
+
   const formik = useFormik({
     // 更新後的初始值，包含所有需要的欄位
     initialValues: {
@@ -44,9 +62,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
       embeddingApiKey: '',
       dbConnectionString: '',
     },
-    validationSchema: validationSchema,
-    // 更新後的 onSubmit 邏輯，串接後端 API
-    onSubmit: async (values, { setSubmitting }) => {
+  validationSchema: validationSchema,
+  onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true);
       try {
         const response = await fetch('/api/create-agent', {
@@ -148,38 +165,37 @@ const handleVerifyConnection = async () => {
       setIsVerifying(false); // 所有驗證流程結束
     }
   };
-  // 對於「新增」功能的 Modal，通常不需要從 localStorage 載入舊資料，
-  // 因此移除了 useEffect hook，確保每次打開都是一個乾淨的表單。
 
   return (
-    <Dialog open={isOpen} onClose={onClose} fullWidth maxWidth="sm">
-      <DialogTitle>新增 Agent</DialogTitle>
-      <Box component="form" onSubmit={formik.handleSubmit} noValidate>
-        <DialogContent>
-          {/* Agent Name */}
+    <div>
+      <Modal
+        open={isOpen}
+        onClose={onClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box component="form" onSubmit={formik.handleSubmit} noValidate sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            新增Agent
+          </Typography>
+
           <TextField
-            autoFocus
-            margin="dense"
-            id="agentName"
-            name="agentName"
-            label="Agent Name"
-            type="text"
-            fullWidth
-            variant="outlined"
-            required
-            value={formik.values.agentName}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.agentName && Boolean(formik.errors.agentName)}
-            helperText={formik.touched.agentName && formik.errors.agentName}
+          id="agentName"
+          name="agentName" // name 必須對應 initialValues
+          label="Agent名稱"
+          variant="outlined"
+          fullWidth
+          sx={{ mt: 1, mb: 2, display: "block" }}
+          onChange={formik.handleChange}
+          error={formik.touched.agentName && Boolean(formik.errors.agentName)}
+          helperText={formik.touched.agentName && formik.errors.agentName}
           />
 
-          {/* LLM Model Name */}
           <TextField
             margin="dense"
             id="llmModelName"
             name="llmModelName"
-            label="LLM Model Name"
+            label="語言模型"
             type="text"
             fullWidth
             variant="outlined"
@@ -189,6 +205,7 @@ const handleVerifyConnection = async () => {
             onBlur={formik.handleBlur}
             error={formik.touched.llmModelName && Boolean(formik.errors.llmModelName)}
             helperText={formik.touched.llmModelName && formik.errors.llmModelName}
+            sx={{ mt: 0, mb: 0, display: "block" }}
           />
 
           {/* API Endpoint */}
@@ -196,7 +213,7 @@ const handleVerifyConnection = async () => {
             margin="dense"
             id="endpoint"
             name="endpoint"
-            label="API Endpoint"
+            label="API端點"
             type="text"
             fullWidth
             variant="outlined"
@@ -206,6 +223,7 @@ const handleVerifyConnection = async () => {
             onBlur={formik.handleBlur}
             error={formik.touched.endpoint && Boolean(formik.errors.endpoint)}
             helperText={formik.touched.endpoint && formik.errors.endpoint}
+            sx={{ mt: 0, mb: 0, display: "block" }}
           />
 
           {/* LLM API Key */}
@@ -213,7 +231,7 @@ const handleVerifyConnection = async () => {
             margin="dense"
             id="llmApiKey"
             name="llmApiKey"
-            label="LLM API Key"
+            label="API金鑰"
             type="password"
             fullWidth
             variant="outlined"
@@ -223,6 +241,7 @@ const handleVerifyConnection = async () => {
             onBlur={formik.handleBlur}
             error={formik.touched.llmApiKey && Boolean(formik.errors.llmApiKey)}
             helperText={formik.touched.llmApiKey && formik.errors.llmApiKey}
+            sx={{ mt: 0, mb: 2, display: "block" }}
           />
 
           {/* Embedding Model Name */}
@@ -230,7 +249,7 @@ const handleVerifyConnection = async () => {
             margin="dense"
             id="embeddingModalName"
             name="embeddingModalName"
-            label="Embedding Model Name"
+            label="向量模型"
             type="text"
             fullWidth
             variant="outlined"
@@ -239,6 +258,7 @@ const handleVerifyConnection = async () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.embeddingModalName && Boolean(formik.errors.embeddingModalName)}
+            sx={{ mt: 0, mb: 0, display: "block" }}
             helperText={formik.touched.embeddingModalName && formik.errors.embeddingModalName}
           />
 
@@ -247,7 +267,7 @@ const handleVerifyConnection = async () => {
             margin="dense"
             id="embeddingEndpoint"
             name="embeddingEndpoint"
-            label="Embedding Endpoint"
+            label="API端點"
             type="text"
             fullWidth
             variant="outlined"
@@ -257,6 +277,7 @@ const handleVerifyConnection = async () => {
             onBlur={formik.handleBlur}
             error={formik.touched.embeddingEndpoint && Boolean(formik.errors.embeddingEndpoint)}
             helperText={formik.touched.embeddingEndpoint && formik.errors.embeddingEndpoint}
+            sx={{ mt: 0, mb: 0, display: "block" }}
           />
 
           {/* Embedding Api Key */}
@@ -264,7 +285,7 @@ const handleVerifyConnection = async () => {
             margin="dense"
             id="embeddingApiKey"
             name="embeddingApiKey"
-            label="Embedding Api Key"
+            label="API金鑰"
             type="password"
             fullWidth
             variant="outlined"
@@ -274,6 +295,7 @@ const handleVerifyConnection = async () => {
             onBlur={formik.handleBlur}
             error={formik.touched.embeddingApiKey && Boolean(formik.errors.embeddingApiKey)}
             helperText={formik.touched.embeddingApiKey && formik.errors.embeddingApiKey}
+            sx={{ mt: 0, mb: 1, display: "block" }}
           />
 
           {/* DB Connection String */}
@@ -281,8 +303,8 @@ const handleVerifyConnection = async () => {
             margin="dense"
             id="dbConnectionString"
             name="dbConnectionString"
-            label="DB Connection String"
-            type="password"
+            label="資料庫URI"
+            type="text"
             fullWidth
             variant="outlined"
             required
@@ -291,21 +313,40 @@ const handleVerifyConnection = async () => {
             onBlur={formik.handleBlur}
             error={formik.touched.dbConnectionString && Boolean(formik.errors.dbConnectionString)}
             helperText={formik.touched.dbConnectionString && formik.errors.dbConnectionString}
+            sx={{ mt: 0, mb: 1, display: "block" }}
           />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={onClose}>取消</Button>
-          <Button
-            onClick={handleVerifyConnection}
-            disabled={isVerifying || formik.isSubmitting}
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              "& > *": {
+                m: 1,
+              },
+            }}
           >
-            {isVerifying ? '驗證中...' : '驗證'}
-          </Button>
-          <Button type="submit" disabled={formik.isSubmitting}>
-            {formik.isSubmitting ? '建立中...' : '新增'}
-          </Button>
-        </DialogActions>
-      </Box>
-    </Dialog>
+            <ButtonGroup size="large" aria-label="Large button group">
+               <Button onClick={onClose}>
+                取消
+              </Button>
+              <Button
+                onClick={handleVerifyConnection}
+                disabled={isVerifying || formik.isSubmitting}
+              >
+                {isVerifying ? '驗證中...' : '驗證'}
+              </Button>
+              <Button type="submit" disabled={formik.isSubmitting}>
+                {formik.isSubmitting ? '建立中...' : '新增'}
+              </Button>
+            </ButtonGroup>
+          </Box>
+
+          {/*
+
+          */}
+        </Box>
+      </Modal>
+    </div>
   );
-};
+}
